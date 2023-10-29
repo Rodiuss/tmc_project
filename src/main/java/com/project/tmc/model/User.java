@@ -29,11 +29,23 @@ public class User implements Comparable<User> {
     @Column(name="username")
     private String username;
 
+    @Column(name="email")
+    private String email;
+
     @Column(name="password")
     private String password;
 
-    @Column(name="email")
-    private String email;
+    @Column(name="surname")
+    private String surname;
+
+    @Column(name="name")
+    private String name;
+
+    @Column(name="patronymic")
+    private String patronymic;
+
+    @Column(name="ind_tax_num")
+    private String IndividualTaxpayerNumber;
 
     @ManyToMany
     @JoinTable(
