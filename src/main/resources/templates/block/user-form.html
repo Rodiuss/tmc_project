@@ -1,0 +1,45 @@
+<div th:fragment="user-form">
+    <div class="form-group">
+        <label for="username">Логин</label>
+
+        <input type="text"
+               class="form-control"
+               th:field="*{username}"
+               placeholder="Логин"
+               id="username"
+               required/>
+        <div class="invalid-feedback">
+            Введите логин пользователя
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="email">Почта</label>
+        <input type="email"
+               class="form-control"
+               th:field="*{email}"
+               placeholder="Почта"
+               id="email"
+               required/>
+        <div class="invalid-feedback">
+            Введите почту пользователя.
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="roles">Роли</label>
+        <select class="form-control" name="roles" multiple id="roles" required>
+            <option th:each="role : ${roles_list}"
+                    th:value="${role.id}"
+                    th:text="${role.name}"
+                    th:selected="${user.hasRole(role)}"
+                    required></option>
+        </select>
+        <div class="invalid-feedback">
+            Выберете роли пользователя.
+        </div>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-primary" th:if="${user.id == null}">Создать пользователя</button>
+    <button type="submit" class="btn btn-primary" name="put" value="put" th:if="${user.id != null}">Обновить пользователя</button>
+</div>
