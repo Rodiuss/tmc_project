@@ -30,7 +30,9 @@
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Имя</th>
+                            <th scope="col">Логин</th>
+                            <th scope="col">ФИО</th>
+                            <th scope="col">ИНН</th>
                             <th scope="col">Почта</th>
                             <th scope="col">Роли</th>
                             <th scope="col">Действия</th>
@@ -40,6 +42,10 @@
                         <tr th:each = "user : ${users}">
                             <th th:text = "${user.id}" scope="row"></th>
                             <td th:text = "${user.username}"></td>
+
+                            <td th:text = "${user.surname} + ' ' + ${user.name} + ' ' + ${user.patronymic}"></td>
+                            <td th:text = "${user.IndividualTaxpayerNumber}"></td>
+
                             <td th:text = "${user.email}"></td>
                             <td>
                                 <span th:each = "role : ${user.roles}" th:text = "${role.name} + ' '"></span>
@@ -47,12 +53,18 @@
                             <td>
                                 <form th:action="@{/admin/user/{id}(id=${user.id})}" method="get">
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-outline-info btn-sm" type="submit">Редактировать</button>
+                                        <a th:href="@{/admin/user/{id}(id=${user.id})}"
+                                           class="btn btn-outline-info btn-sm"
+                                           role="button">
+                                            Редактировать
+                                        </a>
                                         <button type="button"
                                                 class="btn btn-outline-danger btn-sm"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#exampleModalCenter"
-                                                th:onclick="'addLink(' + ${user.id} + ')'">Удалить</button>
+                                                th:onclick="'addLink(' + ${user.id} + ')'">
+                                            Удалить
+                                        </button>
                                     </div>
                                 </form>
                             </td>

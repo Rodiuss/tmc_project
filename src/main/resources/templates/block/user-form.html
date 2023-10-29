@@ -40,6 +40,58 @@
         </div>
     </div>
     <br/>
+    <div class="form-group">
+        <label for="surname">Фамилия</label>
+        <input type="text"
+               class="form-control"
+               th:field="*{surname}"
+               placeholder="Фамилия"
+               id="surname"
+               required/>
+        <div class="invalid-feedback">
+            Введите фамилию пользователя.
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text"
+               class="form-control"
+               th:field="*{name}"
+               placeholder="Имя"
+               id="name"
+               required/>
+        <div class="invalid-feedback">
+            Введите имя пользователя.
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="patronymic">Отчество</label>
+        <input type="text"
+               class="form-control"
+               th:field="*{patronymic}"
+               placeholder="Отчество"
+               id="patronymic"
+               required/>
+        <div class="invalid-feedback">
+            Введите отчество пользователя.
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="IndividualTaxpayerNumber">ИНН</label>
+        <input type="text"
+               class="form-control"
+               th:field="*{IndividualTaxpayerNumber}"
+               placeholder="ИНН"
+               id="IndividualTaxpayerNumber"
+               required/>
+        <div class="invalid-feedback">
+            Введите ИНН пользователя.
+        </div>
+    </div>
+    <br/>
     <button type="submit" class="btn btn-primary" th:if="${user.id == null}">Создать пользователя</button>
     <button type="submit" class="btn btn-primary" name="put" value="put" th:if="${user.id != null}">Обновить пользователя</button>
 </div>
