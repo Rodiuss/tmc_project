@@ -1,0 +1,94 @@
+<div th:fragment="content" class="modal fade m_c_e-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="min-width:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="m_c_eLabel">Продукция</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="m_c_e-form">
+                <div class="modal-body">
+                    <div class="form-group row m-1 mb-3 mt-3">
+                        <div class="col-sm-7">
+                            <label for="name" class="col-form-label">Наименование</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Наименование продукции" required>
+                        </div>
+                        <div class="col-sm-5">
+                            <label for="type" class="col-form-label">Тип</label>
+                            <select class="form-control" name="type" id="type" required>
+                                <option th:each="productType : ${productTypes}" th:value="${productType.programName}" th:text="${productType.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row m-1 mb-3 mt-3">
+                        <div class="col-sm-6">
+                            <label for="article" class="col-form-label">Артикул</label>
+                            <input type="text" class="form-control" name="article" id="article" placeholder="Артикул продукции" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="code" class="col-form-label">Код</label>
+                            <input type="text" class="form-control" name="code" id="code" placeholder="Код продукции" required>
+                        </div>
+                    </div>
+                    <div class="form-group row m-1 mb-3 mt-3">
+                        <div class="col-sm-6">
+                            <label for="group" class="col-form-label">Группа</label>
+                            <select class="form-control" name="group" id="group" required>
+                                <option th:each="productGroup : ${productGroups}" th:value="${productGroup.id}" th:text="${productGroup.name}"></option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="unit" class="col-form-label">Единица измерения</label>
+                            <select class="form-control" name="unit" id="unit" required>
+                                <option th:each="unit : ${units}" th:value="${unit.id}" th:text="${unit.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row m-1">
+                        <div class="col-sm-3">
+                            <label for="purchasePrice" class="col-form-label">Цена покупки</label>
+                            <input type="number" min="0" step="any" class="form-control" name="purchasePrice" id="purchasePrice" placeholder="Цена покупки продукции" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="sellingPrice" class="col-form-label">Цена продажи</label>
+                            <input type="number" min="0" step="any" class="form-control" name="sellingPrice" id="sellingPrice" placeholder="Цена продажи продукции" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="vat" class="col-form-label">НДС</label>
+                            <select class="form-control" name="vat" id="vat" required>
+                                <option th:each="vat : ${vats}" th:value="${vat.programName}" th:text="${vat.name}"></option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="quantity" class="col-form-label">Количество</label>
+                            <input type="number" min="0" class="form-control" name="quantity" id="quantity" placeholder="Количество продукции" required>
+                        </div>
+                    </div>
+                    <div class="form-group m-3">
+                        <label for="description" class="col-form-label">Описание</label>
+                        <textarea class="form-control" name="description" id="description" required></textarea>
+                    </div>
+                    <div class="form-group row m-1 mb-3 mt-3">
+                        <div class="col-sm-6">
+                            <label for="barcode" class="col-form-label">Штрих-код</label>
+                            <input type="text" class="form-control" name="barcode" id="barcode" placeholder="Штрих-код продукции" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="inStock" class="col-form-label">В наличии</label>
+                            <input type="checkbox" class="form-control col-sm-1" name="inStock" id="inStock">
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="excisable" class="col-form-label">Подакцизная</label>
+                            <input type="checkbox" class="form-control col-sm-1" name="excisable" id="excisable">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div th:fragment="content" class="modal fade m_c_e-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="min-width:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="m_c_eLabel">Группа продукции</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="m_c_e-form">
+                <div class="modal-body">
+                    <div class="form-group m-3">
+                        <label for="name">Наименование</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Наименование группы продукции" required>
+                    </div>
+                    <div class="form-group m-3">
+                        <label for="parentGroup">Родительская группа</label>
+                        <select class="form-control" name="parentGroup" id="parentGroup">
+                            <option value="">Отсутствует</option>
+                            <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $( 'body' ).on( 'keypress', ':input[pattern]', function( ev ) {
+        let regex  = new RegExp( $(this).attr( 'pattern' ) );
+        let newVal = $(this).val() + String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);
+
+        if ( regex.test( newVal ) ) {
+            return true;
+        } else {
+            ev.preventDefault();
+            return false;
+        }
+    } );
+</script>

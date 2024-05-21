@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{block/head}"></head>
+<body>
+    <header th:replace="~{block/header}"></header>
+    <main class="px-4">
+        <div class="region region-title">
+            <div id="block-adaptive-title" class="block block-core block-page-title-block">
+                <h2 class="page-title big-title">Справочник "Типы продукции"
+                    <a class="btn buttons-create btn-outline-secondary m_c_e-btn-create ml-3" href="#">Добавить</a>
+                </h2>
+            </div>
+        </div>
+        <div class="region region-content" id="wRC">
+            <div class="row mx-0">
+                <div class="col-md-12 px-0">
+                    <div class="box">
+                        <table id="datatable" class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Программное наименование</th>
+                                    <th scope="col">Наименование</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="~{product/product_type/content}"></div>
+    </main>
+</body>
+
+<div th:replace="~{block/modal_confirmation}"></div>
+
+<script th:insert="~{product/product_type/script.js}"></script>
+<script th:insert="~{../static/js/modal_create_edit.datatables.js}"></script>
+</html>

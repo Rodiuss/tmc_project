@@ -1,15 +1,82 @@
-<div class="container" th:fragment="header">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <p class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-            ТМЦ
-        </p>
-
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/admin" class="nav-link px-2 link-secondary">Дом</a></li>
-        </ul>
-
-        <div class="col-md-3 text-end">
-            <a type="button" class="btn btn-outline-danger me-2" role="button" href="/logout">Выйти</a>
+<header th:fragment="header">
+    <div id="app">
+        <div class="container-fluid px-0 fixed-top">
+            <div class="row mx-0">
+                <div class="col-xl-10 col-lg-10 col-md-9 col-sm-6 px-0">
+                    <nav class="navbar navbar-expand-xl shadow-sm">
+                        <div class="container-fluid px-0">
+                            <a class="navbar-brand" th:href="@{/}"><img th:src="@{/logo.png}" height="40px" alt="logo"></a>
+                            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                                <span class="fas fa-bars fa-2x"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <!-- Left Side Of Navbar -->
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item dropdown">
+                                        <a id="lProducts" class="nav-link dropdown-toggle" href="#" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            <span class='fas fa-sliders-h mr-1'></span>Продукция
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right " aria-labelledby="lProducts">
+                                            <a class="dropdown-item" th:href="@{/product}">
+                                                Справочник продукции
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" th:href="@{/product/product_groups}">
+                                                Справочник групп продукции
+                                            </a>
+                                            <a class="dropdown-item" th:href="@{/product/product_type}">
+                                                Справочник типов продукции
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" th:href="@{/product/unit_of_measure}">
+                                                Справочник единиц измерения
+                                            </a>
+                                            <a class="dropdown-item" th:href="@{/product/vat}">
+                                                Справочник НДС
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <a id="lAdmins" class="nav-link dropdown-toggle" href="#" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            <span class='fas fa-sliders-h mr-1'></span>Администрирование
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="lAdmins">
+                                            <a class="dropdown-item" th:href="@{/admin/users}">
+                                                Справочник пользователей
+                                            </a>
+                                            <a class="dropdown-item" th:href="@{/admin/roles}">
+                                                Справочник ролей
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 px-0">
+                    <nav class="navbar shadow-sm ">
+                        <div class="container-fluid px-0" style="height: 50px">
+                            <!-- Right Side Of Navbar -->
+                            <ul class="navbar-nav ml-auto">
+                                <!-- Authentication Links -->
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" th:text="${#authentication.name}" class="nav-link dropdown-toggle" href="#"
+                                       role="button" data-toggle="dropdown">Меню
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/logout">Выйти</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
         </div>
-    </header>
-</div>
+    </div>
+</header>

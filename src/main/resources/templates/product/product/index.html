@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{block/head}"></head>
+<body>
+    <header th:replace="~{block/header}"></header>
+    <main class="px-4">
+        <div class="region region-title">
+            <div id="block-adaptive-title" class="block block-core block-page-title-block">
+                <h2 class="page-title big-title">Справочник "Продукция"
+                    <a class="btn buttons-create btn-outline-secondary m_c_e-btn-create ml-3" href="#">Добавить</a>
+                </h2>
+            </div>
+        </div>
+        <div class="region region-content" id="wRC">
+            <div class="row mx-0">
+                <div class="col-md-12 px-0">
+                    <div class="box">
+                        <table id="datatable" class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Наименование</th>
+                                    <th scope="col">Артикул</th>
+                                    <th scope="col">Код</th>
+                                    <th scope="col">В наличии</th>
+                                    <th scope="col">Группа</th>
+                                    <th scope="col">Цена покупки</th>
+                                    <th scope="col">Цена продажи</th>
+                                    <th scope="col">Количество</th>
+                                    <th scope="col">Единица измерения</th>
+                                    <th scope="col">Тип</th>
+                                    <th scope="col">Подакцизный</th>
+                                    <th scope="col">Описание</th>
+                                    <th scope="col">Штрих-код</th>
+                                    <th scope="col">НДС</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="~{product/product/content}"></div>
+    </main>
+</body>
+
+<div th:replace="~{block/modal_confirmation}"></div>
+
+<script th:insert="~{product/product/script.js}"></script>
+<script th:insert="~{../static/js/modal_create_edit.datatables.js}"></script>
+</html>
