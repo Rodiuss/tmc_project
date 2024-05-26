@@ -1,8 +1,7 @@
-package com.project.tmc.service.product;
+package com.project.tmc.service.admin;
 
-import com.project.tmc.model.product.ProductType;
-import com.project.tmc.model.product.ProductType;
-import com.project.tmc.repository.product.ProductTypeRepository;
+import com.project.tmc.model.admin.ProductType;
+import com.project.tmc.repository.admin.ProductTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,8 @@
 package com.project.tmc.controller.product;
 
-import com.project.tmc.datatable.product.ProductTypeDatatableRepository;
-import com.project.tmc.model.product.ProductType;
-import com.project.tmc.model.product.ProductType;
-import com.project.tmc.service.product.ProductTypeService;
+import com.project.tmc.datatable.admin.ProductTypeDatatableRepository;
+import com.project.tmc.model.admin.ProductType;
+import com.project.tmc.service.admin.ProductTypeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;

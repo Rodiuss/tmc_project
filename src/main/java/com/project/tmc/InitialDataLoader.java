@@ -1,11 +1,15 @@
 package com.project.tmc;
 
+import com.project.tmc.model.admin.ProductType;
 import com.project.tmc.model.admin.Role;
 import com.project.tmc.model.admin.User;
+import com.project.tmc.model.admin.Vat;
 import com.project.tmc.model.product.*;
 import com.project.tmc.module.PasswordGeneratingModule;
+import com.project.tmc.service.admin.ProductTypeService;
 import com.project.tmc.service.admin.RoleService;
 import com.project.tmc.service.admin.UserService;
+import com.project.tmc.service.admin.VatService;
 import com.project.tmc.service.product.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

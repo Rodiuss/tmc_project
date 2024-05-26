@@ -1,4 +1,4 @@
-package com.project.tmc.model.product;
+package com.project.tmc.model.admin;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,14 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tmc_vat")
+@Table(name = "tmc_product_type")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Vat {
+public class ProductType {
     @Id
-    @Column(name = "program_name", nullable = false, unique = true)
+    @Column(name = "program_name")
     private String programName;
 
     @Column(name = "name")

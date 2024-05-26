@@ -1,8 +1,8 @@
 package com.project.tmc.controller.product;
 
-import com.project.tmc.datatable.product.VatDatatableRepository;
-import com.project.tmc.model.product.Vat;
-import com.project.tmc.service.product.VatService;
+import com.project.tmc.datatable.admin.VatDatatableRepository;
+import com.project.tmc.model.admin.Vat;
+import com.project.tmc.service.admin.VatService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;

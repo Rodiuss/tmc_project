@@ -1,8 +1,7 @@
-package com.project.tmc.service.product;
+package com.project.tmc.service.admin;
 
-import com.project.tmc.datatable.product.VatDatatableRepository;
-import com.project.tmc.model.product.Vat;
-import com.project.tmc.repository.product.VatRepository;
+import com.project.tmc.model.admin.Vat;
+import com.project.tmc.repository.admin.VatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.project.tmc.repository.product;
+package com.project.tmc.repository.admin;
 
-import com.project.tmc.model.product.Vat;
+import com.project.tmc.model.admin.Vat;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

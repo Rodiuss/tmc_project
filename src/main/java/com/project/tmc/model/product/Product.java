@@ -1,5 +1,7 @@
 package com.project.tmc.model.product;
 
+import com.project.tmc.model.admin.ProductType;
+import com.project.tmc.model.admin.Vat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

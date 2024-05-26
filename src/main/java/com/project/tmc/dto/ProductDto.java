@@ -1,8 +1,8 @@
 package com.project.tmc.dto;
 
-import com.project.tmc.model.product.ProductType;
+import com.project.tmc.model.admin.ProductType;
 import com.project.tmc.model.product.UnitOfMeasure;
-import com.project.tmc.model.product.Vat;
+import com.project.tmc.model.admin.Vat;
 import lombok.Builder;
 import lombok.Data;
 
