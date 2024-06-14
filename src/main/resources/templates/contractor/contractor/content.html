@@ -1,0 +1,91 @@
+<div th:fragment="content" class="modal fade m_c_e-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="min-width:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="m_c_eLabel">Контрагент</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="m_c_e-form">
+                <div class="modal-body">
+                    <div class="form-group row m-1 mt-3 mb-3">
+                        <div class="col-sm-6">
+                            <label for="name">Наименование</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Наименование должности контрагента" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="providerType">Правовая форма</label>
+                            <select id="providerType" class="form-control" name="providerType" style="display: block" required>
+                                <option th:each="providerType : ${providerTypes}" th:value="${providerType.id}" th:text="${providerType.name}"></option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="contractorStatus">Статус</label>
+                            <select id="contractorStatus" class="form-control" name="contractorStatus" style="display: block" required>
+                                <option th:each="contractorStatus : ${contractorStatuses}" th:value="${contractorStatus.id}" th:text="${contractorStatus.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row m-1 mt-3 mb-3">
+                        <div class="col-sm-12">
+                            <label for="legalAddress">Юридический адрес</label>
+                            <input type="text" class="form-control" name="legalAddress" id="legalAddress" placeholder="Юридический адрес контрагента" required>
+                        </div>
+                    </div>
+                    <div class="form-group row m-1 mt-3 mb-3">
+                        <div class="col-sm-12">
+                            <label for="actualAddress">Фактический адрес</label>
+                            <input type="text" class="form-control" name="actualAddress" id="actualAddress" placeholder="Фактический адрес контрагента" required>
+                        </div>
+                    </div>
+                    <div class="form-group row m-1 mt-3 mb-3">
+                        <div class="col-sm-4">
+                            <label for="tin">ИНН</label>
+                            <input type="text" class="form-control" name="tin" id="tin" placeholder="ИНН контрагента" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="kpp">КПП</label>
+                            <input type="text" class="form-control" name="kpp" id="kpp" placeholder="КПП контрагента" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="ogrn">ОГРН</label>
+                            <input type="text" class="form-control" name="ogrn" id="ogrn" placeholder="ОГРН контрагента" required>
+                        </div>
+                    </div>
+                    <div class="form-group row m-1 mt-3 mb-3">
+                        <div class="col-sm-4">
+                            <label for="phoneNumber">Номер телефона</label>
+                            <input type="tel" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Номер телефона контрагента">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="email">Электронная почта</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Электронная почта контрагента">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="website">Сайт</label>
+                            <input type="text" class="form-control" name="website" id="website" placeholder="Сайт контрагента">
+                        </div>
+                    </div>
+                    <div class="form-group row m-1 mt-3 mb-3">
+                        <div class="col-sm-6">
+                            <label for="accountNumber">Номер счёта</label>
+                            <input type="text" class="form-control" name="accountNumber" id="accountNumber" placeholder="Номер телефона контрагента" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="bank">Банк</label>
+                            <select id="bank" class="form-control" name="bank" style="display: block" required>
+                                <option th:each="bank : ${banks}" th:value="${bank.id}" th:text="${bank.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

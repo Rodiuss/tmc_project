@@ -5,7 +5,7 @@
                 <div class="col-xl-10 col-lg-10 col-md-9 col-sm-6 px-0">
                     <nav class="navbar navbar-expand-xl shadow-sm">
                         <div class="container-fluid px-0">
-                            <a class="navbar-brand" th:href="@{/}"><img th:src="@{/logo.png}" height="40px" alt="logo"></a>
+                            <a class="navbar-brand" href="/"><img th:src="@{/logo.png}" height="40px" alt="logo"></a>
                             <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
                                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -20,36 +20,86 @@
                                             <span class='fas fa-sliders-h mr-1'></span>Продукция
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right " aria-labelledby="lProducts">
-                                            <a class="dropdown-item" th:href="@{/product}">
+                                            <a class="dropdown-item" href="/products">
                                                 Справочник продукции
                                             </a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" th:href="@{/product/product_groups}">
+                                            <a class="dropdown-item" href="/product/product_groups">
                                                 Справочник групп продукции
                                             </a>
-                                            <a class="dropdown-item" th:href="@{/product/unit_of_measure}">
+                                            <a class="dropdown-item" href="/product/units_of_measure">
                                                 Справочник единиц измерения
+                                            </a>
+                                            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="/product/vats">
+                                                    Справочник НДС
+                                                </a>
+                                                <a class="dropdown-item" href="/product/product_types">
+                                                    Справочник типов продукции
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a id="lСontractors" class="nav-link dropdown-toggle" href="#" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            <span class='fas fa-sliders-h mr-1'></span>Контрагенты
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right " aria-labelledby="lProducts">
+                                            <a class="dropdown-item" href="/contractors">
+                                                Справочник контрагентов
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="/contractor/contact_persons">
+                                                Справочник контактных лиц
+                                            </a>
+                                            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="/contractor/banks">
+                                                    Справочник банков
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="/contractor/contractor_statuses">
+                                                    Справочник статусов контрагента
+                                                </a>
+                                                <a class="dropdown-item" href="/contractor/contractor_types">
+                                                    Справочник типов контрагента
+                                                </a>
+                                                <a class="dropdown-item" href="/contractor/contact_person_positions">
+                                                    Справочник должностей контактного лица
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a id="lDocuments" class="nav-link dropdown-toggle" href="#" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            <span class='fas fa-sliders-h mr-1'></span>Документы
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="lAdmins">
+                                            <a class="dropdown-item" href="/document/acceptance_document">
+                                                Документ приёмки
+                                            </a>
+                                            <a class="dropdown-item" href="#">
+                                                Документ отгрузки
+                                            </a>
+                                            <a class="dropdown-item" href="#">
+                                                Документ инвентаризации
                                             </a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                                         <a id="lAdmins" class="nav-link dropdown-toggle" href="#" role="button"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            <span class='fas fa-sliders-h mr-1'></span>Администрирование
+                                            <span class='fas fa-sliders-h mr-1'></span>Пользователи
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="lAdmins">
-                                            <a class="dropdown-item" th:href="@{/admin/users}">
+                                            <a class="dropdown-item" href="/admin/users">
                                                 Справочник пользователей
                                             </a>
-                                            <a class="dropdown-item" th:href="@{/admin/roles}">
+                                            <a class="dropdown-item" href="/admin/roles">
                                                 Справочник ролей
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" th:href="@{/product/vat}">
-                                                Справочник НДС
-                                            </a>
-                                            <a class="dropdown-item" th:href="@{/product/product_type}">
-                                                Справочник типов продукции
                                             </a>
                                         </div>
                                     </li>

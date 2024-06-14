@@ -41,7 +41,10 @@ $(document).ready(function() {
                     width: '150px'
                 },
                 {
-                    data: "contractor.name",
+                    data: "contractor",
+                    render: function (data, type, row) {
+                        return ((row.contractor.surname) ? (row.contractor.surname + " ") : ("")) + row.contractor.name + " " + row.contractor.patronymic;
+                    },
                     width: '200px'
                 },
             ],

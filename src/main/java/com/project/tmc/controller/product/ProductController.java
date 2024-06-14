@@ -1,31 +1,42 @@
 package com.project.tmc.controller.product;
 
+import com.project.tmc.controller.GenericCrudControllerImpl;
 import com.project.tmc.datatable.product.ProductDataTableRepository;
-import com.project.tmc.dto.ProductDto;
+import com.project.tmc.model.product.ProductType;
+import com.project.tmc.model.product.Vat;
 import com.project.tmc.model.product.Product;
-import com.project.tmc.service.admin.ProductTypeService;
-import com.project.tmc.service.admin.VatService;
-import com.project.tmc.service.product.*;
+import com.project.tmc.model.product.ProductGroup;
+import com.project.tmc.model.product.UnitOfMeasure;
+import com.project.tmc.service.GenericCrudService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/product")
-@RequiredArgsConstructor
-public class ProductController {
-    private final ProductService productService;
-    private final UnitOfMeasureService unitOfMeasureService;
-    private final ProductGroupService productGroupService;
-    private final ProductDataTableRepository productDataTableRepository;
-    private final VatService vatService;
-    private final ProductTypeService productTypeService;
+@RequestMapping("/products")
+public class ProductController extends GenericCrudControllerImpl<Product> {
+    private final GenericCrudService<UnitOfMeasure> unitOfMeasureService;
+    private final GenericCrudService<ProductGroup> productGroupService;
+    private final GenericCrudService<Vat> vatService;
+    private final GenericCrudService<ProductType> productTypeService;
+
+    public ProductController(GenericCrudService<Product> productService,
+                             GenericCrudService<UnitOfMeasure> unitOfMeasureService,
+                             GenericCrudService<ProductGroup> productGroupService,
+                             GenericCrudService<Vat> vatService,
+                             GenericCrudService<ProductType> productTypeService,
+                             ProductDataTableRepository dataTableRepository) {
+        super(productService, dataTableRepository);
+
+        this.unitOfMeasureService = unitOfMeasureService;
+        this.productGroupService = productGroupService;
+        this.vatService = vatService;
+        this.productTypeService = productTypeService;
+    }
 
     @GetMapping
     public String index(Model model) {
@@ -36,52 +47,39 @@ public class ProductController {
         return "product/product/index";
     }
 
+    @Override
     @PostMapping("/ajax")
-    public @ResponseBody DataTablesOutput<ProductDto> ajax(@Valid @RequestBody DataTablesInput input) {
-        return productDataTableRepository.findAll(input, productService::getDto);
+    public @ResponseBody DataTablesOutput<Product> ajax(@Valid @RequestBody DataTablesInput input) {
+        return super.ajax(input);
     }
 
+    @Override
     @GetMapping("/create")
     public ResponseEntity<Object> create() {
-        return ResponseEntity.ok().build();
+        return super.create();
     }
 
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<Object> edit(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok().body(productService.getDtoById(id));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
+        return super.edit(id);
     }
 
+    @Override
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@ModelAttribute Product role) {
-        try {
-            productService.update(role);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> update(@ModelAttribute Product model) {
+        return super.update(model);
     }
 
+    @Override
     @PostMapping
-    public ResponseEntity<Object> store(@ModelAttribute Product role) {
-        try {
-            productService.save(role);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> store(@ModelAttribute Product model) {
+        return super.store(model);
     }
 
+    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> destroy(@PathVariable Long id) {
-        try {
-            productService.delete(id);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
-        return ResponseEntity.ok().body(id);
+        return super.destroy(id);
     }
 }

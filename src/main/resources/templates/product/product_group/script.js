@@ -41,12 +41,6 @@ $(document).ready(function() {
                     width: '200px'
                 },
                 {
-                    data: "path",
-                    width: '550px',
-                    searchable: false,
-                    orderable: false
-                },
-                {
                     data: "delete",
                     render: function (data, type, row) {
                         return "<a href='" + row.id + "' role='button' class='btn-sm btn-danger m_c_e-btn-delete' style='text-decoration: none' title='Удалить'>&#215</a>"

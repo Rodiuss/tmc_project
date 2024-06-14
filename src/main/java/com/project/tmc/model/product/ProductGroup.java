@@ -1,5 +1,6 @@
 package com.project.tmc.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ public class ProductGroup {
     @JoinColumn(name = "parent_group_id", referencedColumnName = "id")
     private ProductGroup parentGroup;
 
-    @OneToMany(mappedBy = "parentGroup")
+    @JsonIgnore
+    @OneToMany(mappedBy = "parentGroup", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ProductGroup> childrenGroups;
 }

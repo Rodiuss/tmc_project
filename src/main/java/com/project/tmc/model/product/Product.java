@@ -1,7 +1,5 @@
 package com.project.tmc.model.product;
 
-import com.project.tmc.model.admin.ProductType;
-import com.project.tmc.model.admin.Vat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -62,7 +60,7 @@ public class Product {
     @Column(name = "barcode")
     private String barcode;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "vat_program_name", referencedColumnName = "program_name")
     private Vat vat;
 }

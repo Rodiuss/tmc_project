@@ -1,75 +1,62 @@
 package com.project.tmc.controller.product;
 
+import com.project.tmc.controller.GenericCrudControllerImpl;
 import com.project.tmc.datatable.admin.VatDatatableRepository;
-import com.project.tmc.model.admin.Vat;
-import com.project.tmc.service.admin.VatService;
+import com.project.tmc.model.product.Vat;
+import com.project.tmc.service.GenericCrudService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequiredArgsConstructor
-@RequestMapping("/product/vat")
-public class VatController {
-    private final VatService vatService;
-    private final VatDatatableRepository vatDatatableRepository;
+@RequestMapping("/product/vats")
+public class VatController extends GenericCrudControllerImpl<Vat> {
+    public VatController(GenericCrudService<Vat> vatService, VatDatatableRepository dataTablesRepository) {
+        super(vatService, dataTablesRepository);
+    }
 
+    @Override
     @GetMapping
     public String index() {
         return "product/vat/index";
     }
 
+    @Override
     @PostMapping("/ajax")
     public @ResponseBody DataTablesOutput<Vat> ajax(@Valid @RequestBody DataTablesInput input) {
-        return vatDatatableRepository.findAll(input);
+        return super.ajax(input);
     }
 
+    @Override
     @GetMapping("/create")
     public ResponseEntity<Object> create() {
-        return ResponseEntity.ok().build();
+        return super.create();
     }
 
-    @GetMapping("/{programName}")
-    public ResponseEntity<Object> edit(@PathVariable String programName) {
-        try {
-            return ResponseEntity.ok().body(vatService.getById(programName));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> edit(@PathVariable Long id) {
+        return super.edit(id);
     }
 
+    @Override
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@ModelAttribute Vat vat) {
-        try {
-            vatService.update(vat);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> update(@ModelAttribute Vat model) {
+        return super.update(model);
     }
 
+    @Override
     @PostMapping
-    public ResponseEntity<Object> store(@ModelAttribute Vat vat) {
-        try {
-            vatService.save(vat);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> store(@ModelAttribute Vat model) {
+        return super.store(model);
     }
 
-    @DeleteMapping("/{programName}")
-    public ResponseEntity<Object> destroy(@PathVariable String programName) {
-        try {
-            vatService.delete(programName);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
-        return ResponseEntity.ok().build();
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> destroy(@PathVariable Long id) {
+        return super.destroy(id);
     }
 }

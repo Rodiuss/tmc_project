@@ -13,7 +13,7 @@ $(document).ready(function() {
         lengthMenu: [ 10, 25, 50, 75, 100 ],
         ajax: {
             contentType: 'application/json',
-            url: 'product/ajax',
+            url: 'products/ajax',
             type: 'POST',
             data: function(d) {
                 return JSON.stringify(d);

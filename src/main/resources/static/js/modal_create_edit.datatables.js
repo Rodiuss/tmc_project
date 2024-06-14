@@ -273,6 +273,16 @@ function _mce_store_fields (res) {
             return;
         }
 
+        if (r[key] && $.isArray(r[key]) && typeof r[key][0] == "object") {
+            let key_array = []
+            r[key].forEach(function (item) {
+                key_array.push(item.id ? item.id : item.programName);
+                $(n).find("option[value='" + item.id ? item.id : item.programName + "']").prop("selected","true");
+            });
+            $(n).val(key_array).trigger("change");
+            return;
+        }
+
         $(n).val(r[key] ? r[key] : "").trigger("change");
         if ($(n).length && $(n)[0].tagName !== "SELECT") {
             $(n).text(r[key]);
@@ -287,3 +297,63 @@ function _mce_store_fields (res) {
         }
     });
 }
+
+$(document).ready(function () {
+    let time_out;
+    let phone = $("form [type=tel]");
+
+    function check_tel(tel) {
+        tel = tel
+            .trim()
+            .replaceAll("(", "")
+            .replaceAll(")", "")
+            .replaceAll("+7", "8")
+            .replaceAll("-", "")
+            .replaceAll(" ", "");
+
+        if (!tel) return true;
+        if (isNaN(parseInt(tel))) return false;
+        if ((tel.length !== 11 || tel[0] !== "8") && (tel.length !== 6) && (tel.length !== 3)) return false;
+
+        tel = [tel.slice(0, 1), "(", tel.slice(1, 4), ") ", tel.slice(4, 7), "-",
+            tel.slice(7, 9), "-", tel.slice(9)].join('');
+
+        phone.val(tel);
+
+        return true;
+    }
+
+    function validate_tel(e=null){
+        if (!check_tel(phone.val()))
+        {
+            if (e) e.preventDefault();
+
+            $("form :input[name!='_token']").removeClass("is-invalid");
+            $("form .invalid-feedback").remove();
+            $("<div class=\"invalid-feedback mt-0\" id=\"invalid_phoneNumber\">Неправильный формат</div>")
+                .appendTo(phone.parent());
+            phone.addClass("is-invalid");
+            phone.focus();
+        } else{
+            $("form #invalid_phoneNumber").remove();
+            phone.removeClass("is-invalid");
+        }
+    }
+
+    function time_out_func() {
+        validate_tel()
+    }
+
+    phone
+        .on('keyup', function () {
+            clearTimeout(time_out);
+            time_out = setTimeout(time_out_func, 1000);
+        })
+        .on('keydown', function () {
+            clearTimeout(time_out);
+        });
+
+    $(document).on("click",".m_c_e-modal [type=\"submit\"]", function (e) {
+        validate_tel(e)
+    });
+});

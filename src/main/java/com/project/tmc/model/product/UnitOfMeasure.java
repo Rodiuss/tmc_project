@@ -1,10 +1,13 @@
 package com.project.tmc.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tmc_unit_of_measure")
@@ -20,4 +23,8 @@ public class UnitOfMeasure {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.DETACH)
+    private List<Product> productList;
 }

@@ -4,12 +4,14 @@ import com.project.tmc.model.product.ProductGroup;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
+@Repository
 public interface ProductGroupRepository extends CrudRepository<ProductGroup, Long> {
     Optional<ProductGroup> findByName(String name);
 

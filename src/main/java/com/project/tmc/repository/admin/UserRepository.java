@@ -1,13 +1,12 @@
 package com.project.tmc.repository.admin;
 
-import com.project.tmc.model.admin.User;
+import com.project.tmc.model.user.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * Managing the {@link User} entity
- */
+@Repository
 public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findByEmail(String email);
 }

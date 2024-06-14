@@ -1,75 +1,63 @@
 package com.project.tmc.controller.product;
 
+import com.project.tmc.controller.GenericCrudControllerImpl;
 import com.project.tmc.datatable.product.UnitOfMeasureDataTableRepository;
 import com.project.tmc.model.product.UnitOfMeasure;
-import com.project.tmc.service.product.UnitOfMeasureService;
+import com.project.tmc.service.GenericCrudService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("product/unit_of_measure")
-@RequiredArgsConstructor
-public class UnitOfMeasureController {
-    private final UnitOfMeasureService unitOfMeasureService;
-    private final UnitOfMeasureDataTableRepository unitOfMeasureDataTableRepository;
+@RequestMapping("product/units_of_measure")
+public class UnitOfMeasureController extends GenericCrudControllerImpl<UnitOfMeasure> {
+    public UnitOfMeasureController(GenericCrudService<UnitOfMeasure> unitOfMeasureService, UnitOfMeasureDataTableRepository dataTablesRepository) {
+        super(unitOfMeasureService, dataTablesRepository);
+    }
 
+    @Override
     @GetMapping
     public String index() {
         return "product/unit_of_measure/index";
     }
 
+    @Override
     @PostMapping("/ajax")
     public @ResponseBody DataTablesOutput<UnitOfMeasure> ajax(@Valid @RequestBody DataTablesInput input) {
-        return unitOfMeasureDataTableRepository.findAll(input);
+        return super.ajax(input);
     }
 
+    @Override
     @GetMapping("/create")
     public ResponseEntity<Object> create() {
-        return ResponseEntity.ok().build();
+        return super.create();
     }
 
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<Object> edit(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok().body(unitOfMeasureService.getById(id));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
+        return super.edit(id);
     }
 
+    @Override
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@ModelAttribute UnitOfMeasure role) {
-        try {
-            unitOfMeasureService.update(role);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
-        return ResponseEntity.ok().body(role);
+    public ResponseEntity<Object> update(@ModelAttribute UnitOfMeasure model) {
+        return super.update(model);
     }
 
+    @Override
     @PostMapping
-    public ResponseEntity<Object> store(@ModelAttribute UnitOfMeasure role) {
-        try {
-            unitOfMeasureService.save(role);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
-        return ResponseEntity.ok().body(role);
+    public ResponseEntity<Object> store(@ModelAttribute UnitOfMeasure model) {
+        return super.store(model);
     }
 
+    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> destroy(@PathVariable Long id) {
-        try {
-            unitOfMeasureService.delete(id);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(e.getMessage());
-        }
-        return ResponseEntity.ok().body(id);
+        return super.destroy(id);
     }
 }
