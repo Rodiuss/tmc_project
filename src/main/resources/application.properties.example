@@ -5,3 +5,10 @@ spring.datasource.password=password
 spring.jpa.show-sql=true
 spring.jpa.generate-ddl=false
 spring.jpa.hibernate.ddl-auto=update
+
+
+# server.port = 443
+# server.ssl.key-store = keystore.p12
+# server.ssl.key-store-password = ********
+# server.ssl.keyStoreType = PKCS12
+# server.ssl.keyAlias = tomcat
