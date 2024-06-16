@@ -17,7 +17,7 @@
                         <div class="col-sm-5">
                             <label for="type" class="col-form-label">Тип</label>
                             <select class="form-control" name="type" id="type" required>
-                                <option th:each="productType : ${productTypes}" th:value="${productType.programName}" th:text="${productType.name}"></option>
+                                <option th:each="productType : ${productTypes}" th:value="${productType.id}" th:text="${productType.name}"></option>
                             </select>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         <div class="col-sm-3">
                             <label for="vat" class="col-form-label">НДС</label>
                             <select class="form-control" name="vat" id="vat" required>
-                                <option th:each="vat : ${vats}" th:value="${vat.programName}" th:text="${vat.name}"></option>
+                                <option th:each="vat : ${vats}" th:value="${vat.id}" th:text="${vat.name}"></option>
                             </select>
                         </div>
                         <div class="col-sm-3">

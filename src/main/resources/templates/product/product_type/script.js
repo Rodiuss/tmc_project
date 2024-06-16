@@ -32,14 +32,14 @@ $(document).ready(function() {
                 {
                     data: "name",
                     render: function (data, type, row) {
-                        return "<div href='" + row.programName + "' class='m_c_e-btn-edit' style='text-decoration:underline;cursor:pointer' title='Редактировать'>" + row.name + "</div>";
+                        return "<div href='" + row.id + "' class='m_c_e-btn-edit' style='text-decoration:underline;cursor:pointer' title='Редактировать'>" + row.name + "</div>";
                     },
                     width: '400px'
                 },
                 {
                     data: "delete",
                     render: function (data, type, row) {
-                        return "<a href='" + row.programName + "' role='button' class='btn-sm btn-danger m_c_e-btn-delete' style='text-decoration: none' title='Удалить'>&#215</a>"
+                        return "<a href='" + row.id + "' role='button' class='btn-sm btn-danger m_c_e-btn-delete' style='text-decoration: none' title='Удалить'>&#215</a>"
                     },
                     searchable: false,
                     orderable: false,
