@@ -81,7 +81,7 @@ $(document).ready(function () {
                 $('.m_c_e-btn-save' + jq_add).text('Сохранить');
                 $('.m_c_e-btn-save-new' + jq_add).addClass('disabled');
 
-                const m_c_e_label = $('.modal-title' + jq_add)
+                const m_c_e_label = $('#m_c_eLabel' + jq_add)
                 const label_add_index = m_c_e_label.text().indexOf(':');
 
                 if (label_add_index === -1) {
@@ -127,7 +127,7 @@ $(document).ready(function () {
                 $('.m_c_e-btn-save' + jq_add).text('Сохранить');
                 $('.m_c_e-btn-save-new' + jq_add).removeClass('disabled');
 
-                const m_c_e_label = $('.modal-title' + jq_add);
+                const m_c_e_label = $('#m_c_eLabel' + jq_add);
                 const label_add_index = m_c_e_label.text().indexOf(':');
 
                 if (label_add_index === -1) {
