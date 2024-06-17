@@ -1,31 +1,88 @@
-<div th:fragment="content" class="modal fade m_c_e-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document" style="min-width:60%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="m_c_eLabel">НДС</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form class="m_c_e-form">
-                <div class="modal-body">
-                    <div class="form-group row m-1 mb-3 mt-3">
-                        <div class="col-sm-6">
-                            <label for="programName">Программное наименование</label>
-                            <input type="text" class="form-control" name="programName" id="programName" placeholder="Программное наименование НДС" required>
+<div th:fragment="content">
+    <div class="modal fade m_c_e-modal" mce_loc="/document/shipment_document" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document" style="min-width:60%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" mce_loc="/document/shipment_document">Документ отгрузки</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="m_c_e-form" mce_loc="/document/shipment_document">
+                    <div class="modal-body">
+                        <input type="hidden" id="id" name="id" disabled="disabled">
+                        <div class="form-group row m-1 mb-3 mt-3">
+                            <div class="col-sm-4">
+                                <label for="documentNumber">Номер</label>
+                                <input type="text" class="form-control" name="documentNumber" id="documentNumber" placeholder="Номер документа" required>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="documentDate">Дата</label>
+                                <input type="date" class="form-control" name="documentDate" id="documentDate" placeholder="Дата документа" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="contractor">Поставщик</label>
+                                <select id="contractor" class="form-control" name="contractor" style="display: block" required>
+                                    <option th:each="contractor : ${contractors}" th:value="${contractor.id}" th:text="${contractor.name}"></option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-6">
-                            <label for="name">Наименование</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Наименование НДС" required>
+                        <div class="form-group row m-1 mb-3 mt-3">
+                            <div class="col-sm-12">
+                                <table id="s_datatable" class="table table-condensed">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Продукция</th>
+                                        <th scope="col">Количество</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit">Сохранить</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" mce_loc="/document/shipment_document">Сохранить</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade m_c_e-modal" mce_loc="/document/shipment_document_item" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document" style="min-width:60%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" mce_loc="/document/shipment_document_item">Строка документа отгрузки</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </form>
+                <form class="m_c_e-form" mce_loc="/document/shipment_document_item">
+                    <input type="hidden" id="acceptanceDocument" name="acceptanceDocument">
+                    <div class="modal-body">
+                        <div class="form-group row m-1 mb-3 mt-3">
+                            <div class="col-sm-8">
+                                <label for="product">Продукция</label>
+                                <select id="product" class="form-control" name="product" style="display: block" required>
+                                    <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="quantity">Количество</label>
+                                <input type="number" min="0" class="form-control" name="quantity" id="quantity" placeholder="Количество продукции" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" mce_loc="/document/shipment_document_item">Сохранить</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

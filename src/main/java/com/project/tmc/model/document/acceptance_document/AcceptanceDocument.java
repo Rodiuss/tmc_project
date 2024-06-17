@@ -32,7 +32,7 @@ public class AcceptanceDocument {
     private Date documentDate;
 
     @ManyToOne
-    @JoinColumn(name = "contractor_id", nullable = false)
+    @JoinColumn(name = "contractor_id")
     private Contractor contractor;
 
     @JsonBackReference

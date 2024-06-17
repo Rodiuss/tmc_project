@@ -30,10 +30,10 @@ public class ShipmentDocument {
     private Date documentDate;
 
     @ManyToOne
-    @JoinColumn(name = "contractor_id", nullable = false)
+    @JoinColumn(name = "contractor_id")
     private Contractor contractor;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "acceptanceDocument", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "acceptanceDocument", cascade = CascadeType.ALL)
     private List<ShipmentDocumentItem> items;
 }

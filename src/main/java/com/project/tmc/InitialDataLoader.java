@@ -466,12 +466,12 @@ public class InitialDataLoader implements CommandLineRunner {
             List<AcceptanceDocument> acceptanceDocuments = new ArrayList<>() {{
                 add(AcceptanceDocument.builder()
                         .documentDate(Date.valueOf("2023-01-01"))
-                        .documentNumber("ПР-001/2023")
+                        .documentNumber("ПТ-001/2023")
                         .contractor(contractors.get(0))
                         .build());
                 add(AcceptanceDocument.builder()
                         .documentDate(Date.valueOf("2023-02-02"))
-                        .documentNumber("ПР-025/2023")
+                        .documentNumber("ПТ-025/2023")
                         .contractor(contractors.get(1))
                         .build());
             }};

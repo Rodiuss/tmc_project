@@ -4,6 +4,8 @@ import com.project.tmc.controller.GenericCrudControllerImpl;
 import com.project.tmc.datatable.document.acceptance_document.AcceptanceDocumentDatatableRepository;
 import com.project.tmc.model.contractor.Contractor;
 import com.project.tmc.model.document.acceptance_document.AcceptanceDocument;
+import com.project.tmc.model.product.Product;
+import com.project.tmc.repository.document.acceptance_document.AcceptanceDocumentRepository;
 import com.project.tmc.service.GenericCrudService;
 import jakarta.validation.Valid;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -13,22 +15,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/document/acceptance_document")
 public class AcceptanceDocumentController extends GenericCrudControllerImpl<AcceptanceDocument> {
     private final GenericCrudService<Contractor> contractorService;
+    private final GenericCrudService<Product> productService;
+
+    private final AcceptanceDocumentRepository acceptanceDocumentRepository;
 
     public AcceptanceDocumentController(GenericCrudService<AcceptanceDocument> acceptanceDocumentService,
                                         GenericCrudService<Contractor> contractorService,
-                                        AcceptanceDocumentDatatableRepository repository) {
+                                        GenericCrudService<Product> productService,
+                                        AcceptanceDocumentDatatableRepository repository,
+                                        AcceptanceDocumentRepository acceptanceDocumentRepository) {
         super(acceptanceDocumentService, repository);
 
         this.contractorService = contractorService;
+        this.productService = productService;
+        this.acceptanceDocumentRepository = acceptanceDocumentRepository;
     }
 
     @GetMapping
     public String index(Model model) {
         model.addAttribute("contractors", contractorService.findAll());
+        model.addAttribute("products", productService.findAll());
         return "document/acceptance_document/index";
     }
 
@@ -41,7 +54,14 @@ public class AcceptanceDocumentController extends GenericCrudControllerImpl<Acce
     @Override
     @GetMapping("/create")
     public ResponseEntity<Object> create() {
-        return super.create();
+        AcceptanceDocument document = AcceptanceDocument.builder()
+                .documentNumber(String.format("ПТ-%03d/%s", acceptanceDocumentRepository.getNextSeriesId(), LocalDate.now().getYear()))
+                .documentDate(Date.valueOf(LocalDate.now()))
+                .build();
+
+        service.save(document);
+
+        return ResponseEntity.ok().body(document);
     }
 
     @Override

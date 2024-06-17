@@ -2,7 +2,6 @@ package com.project.tmc.controller.document.acceptance_document;
 
 import com.project.tmc.controller.GenericCrudControllerImpl;
 import com.project.tmc.datatable.document.acceptance_document.AcceptanceDocumentItemDatatableRepository;
-import com.project.tmc.model.document.acceptance_document.AcceptanceDocument;
 import com.project.tmc.model.document.acceptance_document.AcceptanceDocumentItem;
 import com.project.tmc.service.GenericCrudService;
 import jakarta.validation.Valid;

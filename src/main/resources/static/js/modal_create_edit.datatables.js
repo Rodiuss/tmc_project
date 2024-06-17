@@ -10,6 +10,7 @@ $(document).ready(function () {
         const header = $("meta[name='_csrf_header']").attr("content");
 
         const f_dt = new FormData($(this)[0]);
+        const jq_add = $(this).attr('mce_loc') ? '[mce_loc="'+ $(this).attr('mce_loc') +'"]' : '';
 
         $.each($("form input[type=checkbox]"), function (key, val) {
             if (!$(this).is(':checked')) {
@@ -28,29 +29,29 @@ $(document).ready(function () {
                 xhr.setRequestHeader(header, token);
             },
             success: function (res) {
-                const m_c_e_form = $('.m_c_e-form');
+                const m_c_e_form = $('.m_c_e-form' + jq_add);
 
                 if (res.error) {
                     m_c_e_form.attr('action', m_c_e_form.attr('_save_action'));
                     m_c_e_form.attr('_method', m_c_e_form.attr('_save_method'));
-                    $('.m_c_e-form :input[name!="_token"]').removeClass('is-invalid');
-                    $('.m_c_e-form .invalid-feedback').remove();
+                    $('.m_c_e-form' + jq_add + ':input[name!="_token"]').removeClass('is-invalid');
+                    $('.m_c_e-form' + jq_add + '.invalid-feedback').remove();
                     $("<div class=\"invalid-feedback mt-0\">" + res.message + "</div>")
-                        .appendTo($('form.m_c_e-form [name=' + res.name + ']').parent());
-                    $('.m_c_e-form [name=' + res.name + ']').addClass('is-invalid').focus();
+                        .appendTo($('form.m_c_e-form' + jq_add + '[name=' + res.name + ']').parent());
+                    $('.m_c_e-form' + jq_add + '[name=' + res.name + ']').addClass('is-invalid').focus();
                     return;
                 }
 
                 $('.dataTable[id]').DataTable().ajax.reload(null, false);
-                $('.m_c_e-modal').modal('hide');
-                $('.m_c_e-block').addClass('d-none');
+                $('.m_c_e-modal' + jq_add).modal('hide');
+                $('.m_c_e-block' + jq_add).addClass('d-none');
 
                 m_c_e_form.trigger('stored', res);
             },
             error: function (jqxhr) {
                 alert('Ошибка: ' + jqxhr.responseText);
-                $('.m_c_e-modal').modal('hide');
-                $('.m_c_e-block').addClass('d-none');
+                $('.m_c_e-modal' + jq_add).modal('hide');
+                $('.m_c_e-block' + jq_add).addClass('d-none');
             }
         });
     });
@@ -58,27 +59,29 @@ $(document).ready(function () {
     $(document).on('click', '.m_c_e-btn-create', function (e) {
         e.preventDefault();
 
+        const jq_add = $(this).attr('mce_loc') ? '[mce_loc="'+ $(this).attr('mce_loc') +'"]' : '';
+        const link = window.location.origin + ($(this).attr('mce_loc') === undefined ? window.location.pathname : $(this).attr('mce_loc'));
         $.ajax({
-            url: window.location.origin + window.location.pathname + '/create',
+            url: link + '/create',
             type: 'GET',
             dataType: 'text',
             success: function (res) {
-                const m_c_e_form = $('.m_c_e-form');
+                const m_c_e_form = $('.m_c_e-form' + jq_add);
 
                 m_c_e_form.trigger('create', res);
 
-                _mce_store_fields(res);
+                _mce_store_fields(res, jq_add);
 
                 m_c_e_form
-                    .attr('action', window.location.origin + window.location.pathname)
+                    .attr('action', link)
                     .attr('_method', 'POST')
-                    .attr('_save_action', window.location.origin + window.location.pathname)
+                    .attr('_save_action', link)
                     .attr('_save_method', 'POST');
 
-                $('.m_c_e-btn-save').text('Сохранить');
-                $('.m_c_e-btn-save-new').addClass('disabled');
+                $('.m_c_e-btn-save' + jq_add).text('Сохранить');
+                $('.m_c_e-btn-save-new' + jq_add).addClass('disabled');
 
-                const m_c_e_label = $('#m_c_eLabel')
+                const m_c_e_label = $('.modal-title' + jq_add)
                 const label_add_index = m_c_e_label.text().indexOf(':');
 
                 if (label_add_index === -1) {
@@ -88,8 +91,8 @@ $(document).ready(function () {
                 }
 
                 m_c_e_form.trigger('creating', res);
-                $('.m_c_e-modal').modal('show');
-                $('.m_c_e-block').removeClass('d-none');
+                $('.m_c_e-modal' + jq_add).modal('show');
+                $('.m_c_e-block' + jq_add).removeClass('d-none');
             },
             error: function (jqxhr) {
                 alert('Ошибка: ' + jqxhr.responseText);
@@ -101,27 +104,30 @@ $(document).ready(function () {
         e.preventDefault();
         const that = $(this);
 
+        const jq_add = $(this).attr('mce_loc') ? '[mce_loc="'+ $(this).attr('mce_loc') +'"]' : '';
+        const link = window.location.origin + ($(this).attr("mce_loc") === undefined ? window.location.pathname : $(this).attr("mce_loc")) + '/' + that.attr('href');
+
         $.ajax({
-            url: window.location.origin + window.location.pathname + '/' + that.attr('href'),
+            url: link,
             type: 'GET',
             dataType: 'text',
 
             success: function (res) {
-                const m_c_e_form = $('.m_c_e-form');
+                const m_c_e_form = $('.m_c_e-form' + jq_add);
 
                 m_c_e_form.trigger('edit', res);
-                _mce_store_fields(res);
+                _mce_store_fields(res, jq_add);
 
                 m_c_e_form
-                    .attr('action', window.location.origin + window.location.pathname + '/' + that.attr('href'))
+                    .attr('action', link)
                     .attr('_method', 'PUT')
-                    .attr('_save_action', window.location.origin + window.location.pathname + '/' + that.attr('href'))
+                    .attr('_save_action', link)
                     .attr('_save_method', 'PUT');
 
-                $('.m_c_e-btn-save').text('Сохранить');
-                $('.m_c_e-btn-save-new').removeClass('disabled');
+                $('.m_c_e-btn-save' + jq_add).text('Сохранить');
+                $('.m_c_e-btn-save-new' + jq_add).removeClass('disabled');
 
-                const m_c_e_label = $('#m_c_eLabel');
+                const m_c_e_label = $('.modal-title' + jq_add);
                 const label_add_index = m_c_e_label.text().indexOf(':');
 
                 if (label_add_index === -1) {
@@ -132,8 +138,8 @@ $(document).ready(function () {
 
                 m_c_e_form.trigger('editing', res);
 
-                $('.m_c_e-modal').modal('show');
-                $('.m_c_e-block').removeClass('d-none');
+                $('.m_c_e-modal' + jq_add).modal('show');
+                $('.m_c_e-block' + jq_add).removeClass('d-none');
             },
             error: function (jqxhr) {
                 alert('Ошибка: ' + jqxhr.responseText);
@@ -153,7 +159,7 @@ $(document).ready(function () {
 
         $(document).on('click', '.m_c_e-acc-del-btn', function (e) {
             $.ajax({
-                url: window.location.origin + window.location.pathname + '/' + that.attr('href'),
+                url: window.location.origin + ($(this).attr("mce_loc") === undefined ? window.location.pathname : $(this).attr("mce_loc")) + '/' + that.attr('href'),
                 type: 'DELETE',
                 dataType: 'text',
                 beforeSend: function (xhr) {
@@ -199,59 +205,11 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    DataTable.ext.buttons.create = {
-        className: 'buttons-create',
+function _mce_store_fields (res, jq_add) {
+    $('.m_c_e-form' + jq_add + ' :input[name!="_token"]').val('').removeClass('is-invalid');
+    $('.m_c_e-form' + jq_add + ' .invalid-feedback').remove();
 
-        text: function (dt) {
-            return '<i class="fa fa-plus"></i> ' + dt.i18n('buttons.create', 'Новая запись');
-        },
-        action: function (e, dt, button, config) {
-            $.ajax({
-                url: window.location.origin + window.location.pathname + '/create',
-                type: 'GET',
-                dataType: 'text',
-
-                success: function(res) {
-                    const m_c_e_form = $('.m_c_e-form');
-
-                    m_c_e_form.trigger('create', res);
-
-                    _mce_store_fields(res);
-
-                    m_c_e_form.attr('action', window.location.origin + window.location.pathname)
-                        .attr("_method", 'POST')
-                        .attr("_save_action", window.location.origin + window.location.pathname)
-                        .attr("_save_method", 'POST');
-
-                    $('.m_c_e-btn-save').text('Сохранить');
-                    $('.m_c_e-btn-save-new').addClass('disabled');
-
-                    const m_c_e_label = $('#m_c_eLabel');
-                    const label_add_index = m_c_e_label.text().indexOf(':');
-
-                    if (label_add_index === -1) {
-                        m_c_e_label.text(m_c_e_label.text() + ': добавление');
-                    } else {
-                        m_c_e_label.text(m_c_e_label.text().substring(0, label_add_index) + ': добавление');
-                    }
-
-                    m_c_e_form.trigger('creating', res);
-                    $('.m_c_e-modal').modal('show');
-                },
-                error: function(jqxhr) {
-                    alert('Ошибка: ' + jqxhr.responseText);
-                }
-            });
-        }
-    };
-});
-
-function _mce_store_fields (res) {
-    $('.m_c_e-form :input[name!="_token"]').val('').removeClass('is-invalid');
-    $('.m_c_e-form .invalid-feedback').remove();
-
-    $('form .m_c_e-group').each(function(index, element) {
+    $('form' + jq_add + ' .m_c_e-group').each(function(index, element) {
         $(element).find('.m_c_e-group-element:gt(0)').remove();
     });
 
@@ -266,34 +224,34 @@ function _mce_store_fields (res) {
     }
 
     Object.keys(r).forEach(function(key) {
-        let n = "form [name='" + key + "']";
-        if (r[key] && typeof r[key] == "object" && !$.isArray(r[key])) {
-            $(n).val(r[key].id ? r[key].id : r[key].programName).trigger("change");
-            $(n).find("option[value='" + r[key].id ? r[key].id : r[key].programName + "']").prop("selected","true");
+        let n = 'form' + jq_add + ' [name="' + key + '"]';
+        if (r[key] && typeof r[key] == 'object' && !$.isArray(r[key])) {
+            $(n).val(r[key].id ? r[key].id : r[key].programName).trigger('change');
+            $(n).find('option[value="' + r[key].id ? r[key].id : r[key].programName + '"]').prop('selected', 'true');
             return;
         }
 
-        if (r[key] && $.isArray(r[key]) && typeof r[key][0] == "object") {
+        if (r[key] && $.isArray(r[key]) && typeof r[key][0] == 'object') {
             let key_array = []
             r[key].forEach(function (item) {
                 key_array.push(item.id ? item.id : item.programName);
-                $(n).find("option[value='" + item.id ? item.id : item.programName + "']").prop("selected","true");
+                $(n).find('option[value="' + item.id ? item.id : item.programName + '"]').prop('selected', 'true');
             });
-            $(n).val(key_array).trigger("change");
+            $(n).val(key_array).trigger('change');
             return;
         }
 
-        $(n).val(r[key] ? r[key] : "").trigger("change");
-        if ($(n).length && $(n)[0].tagName !== "SELECT") {
+        $(n).val(r[key] ? r[key] : '').trigger('change');
+        if ($(n).length && $(n)[0].tagName !== 'SELECT') {
             $(n).text(r[key]);
         }
 
-        if ($(n).length && $(n)[0].tagName === "SELECT") {
-            $(n).find("option[value='"+r[key]+"']").prop("selected","true");
+        if ($(n).length && $(n)[0].tagName === 'SELECT') {
+            $(n).find("option[value='"+r[key]+"']").prop('selected','true');
         }
 
-        if ($(n).prop("type") === "checkbox") {
-            $(n).prop("checked", r[key]);
+        if ($(n).prop('type') === 'checkbox') {
+            $(n).prop('checked', r[key]);
         }
     });
 }
@@ -354,6 +312,7 @@ $(document).ready(function () {
         });
 
     $(document).on("click",".m_c_e-modal [type=\"submit\"]", function (e) {
-        validate_tel(e)
+        if (!phone.length) return;
+        validate_tel(e);
     });
 });

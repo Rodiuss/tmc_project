@@ -1,7 +1,9 @@
 package com.project.tmc.controller.document.shipment_document;
 
 import com.project.tmc.controller.GenericCrudControllerImpl;
+import com.project.tmc.controller.document.acceptance_document.AcceptanceDocumentItemSpec;
 import com.project.tmc.datatable.document.shipment_document.ShipmentDocumentItemDatatableRepository;
+import com.project.tmc.model.document.acceptance_document.AcceptanceDocumentItem;
 import com.project.tmc.model.document.shipment_document.ShipmentDocument;
 import com.project.tmc.model.document.shipment_document.ShipmentDocumentItem;
 import com.project.tmc.service.GenericCrudService;
@@ -19,16 +21,9 @@ public class ShipmentDocumentItemController extends GenericCrudControllerImpl<Sh
         super(shipmentDocumentItemService, repository);
     }
 
-    @Override
-    @GetMapping
-    public String index() {
-        return "contractor/bank/index";
-    }
-
-    @Override
-    @PostMapping("/ajax")
-    public @ResponseBody DataTablesOutput<ShipmentDocumentItem> ajax(@Valid @RequestBody DataTablesInput input) {
-        return super.ajax(input);
+    @PostMapping("/ajax/{id}")
+    public @ResponseBody DataTablesOutput<ShipmentDocumentItem> ajax(@Valid @RequestBody DataTablesInput input, @PathVariable Long id) {
+        return dataTablesRepository.findAll(input, new ShipmentDocumentItemSpec(id));
     }
 
     @Override
