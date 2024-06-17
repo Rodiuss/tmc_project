@@ -1,5 +1,6 @@
 package com.project.tmc.model.document.inventory_document;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.tmc.model.contractor.Contractor;
 import jakarta.persistence.*;
@@ -29,11 +30,7 @@ public class InventoryDocument {
     @Column(name = "document_date", nullable = false)
     private Date documentDate;
 
-    @ManyToOne
-    @JoinColumn(name = "contractor_id", nullable = false)
-    private Contractor contractor;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "acceptanceDocument", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    @OneToMany(mappedBy = "inventoryDocument", cascade = CascadeType.ALL)
     private List<InventoryDocumentItem> items;
 }

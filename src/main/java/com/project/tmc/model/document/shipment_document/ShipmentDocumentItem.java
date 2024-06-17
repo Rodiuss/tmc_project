@@ -23,7 +23,7 @@ public class ShipmentDocumentItem {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "document_id", nullable = false)
-    private ShipmentDocument acceptanceDocument;
+    private ShipmentDocument shipmentDocument;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

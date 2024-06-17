@@ -1,6 +1,7 @@
 package com.project.tmc.controller.document.inventory_document;
 
 import com.project.tmc.controller.GenericCrudControllerImpl;
+import com.project.tmc.controller.document.acceptance_document.AcceptanceDocumentItemSpec;
 import com.project.tmc.datatable.document.inventory_document.InventoryDocumentItemDatatableRepository;
 import com.project.tmc.model.document.inventory_document.InventoryDocumentItem;
 import com.project.tmc.service.GenericCrudService;
@@ -18,16 +19,9 @@ public class InventoryDocumentItemController extends GenericCrudControllerImpl<I
         super(inventoryDocumentItemService, repository);
     }
 
-    @Override
-    @GetMapping
-    public String index() {
-        return "contractor/bank/index";
-    }
-
-    @Override
-    @PostMapping("/ajax")
-    public @ResponseBody DataTablesOutput<InventoryDocumentItem> ajax(@Valid @RequestBody DataTablesInput input) {
-        return super.ajax(input);
+    @PostMapping("/ajax/{id}")
+    public @ResponseBody DataTablesOutput<InventoryDocumentItem> ajax(@Valid @RequestBody DataTablesInput input, @PathVariable Long id) {
+        return dataTablesRepository.findAll(input, new InventoryDocumentItemSpec(id));
     }
 
     @Override
@@ -51,6 +45,7 @@ public class InventoryDocumentItemController extends GenericCrudControllerImpl<I
     @Override
     @PostMapping
     public ResponseEntity<Object> store(@ModelAttribute InventoryDocumentItem model) {
+        model.setQuantityPlan(model.getProduct().getQuantity());
         return super.store(model);
     }
 

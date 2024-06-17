@@ -34,6 +34,6 @@ public class ShipmentDocument {
     private Contractor contractor;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "acceptanceDocument", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "shipmentDocument", cascade = CascadeType.ALL)
     private List<ShipmentDocumentItem> items;
 }

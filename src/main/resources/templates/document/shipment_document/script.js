@@ -155,7 +155,7 @@ $(document)
     })
     .on('creating', '.m_c_e-form[mce_loc="/document/shipment_document_item"]', function (e, res) {
         $('.m_c_e-modal[mce_loc="/document/shipment_document"]').modal("hide");
-        $('.m_c_e-form[mce_loc="/document/shipment_document_item"] #acceptanceDocument').val($('.m_c_e-form[mce_loc="/document/shipment_document"] #id').val());
+        $('.m_c_e-form[mce_loc="/document/shipment_document_item"] #shipmentDocument').val($('.m_c_e-form[mce_loc="/document/shipment_document"] #id').val());
     })
     .on('hidden.bs.modal', '.m_c_e-modal[mce_loc="/document/shipment_document_item"]', function (e) {
         $('.m_c_e-modal[mce_loc="/document/shipment_document"]').modal("show");

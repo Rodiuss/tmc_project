@@ -21,7 +21,7 @@
                                 <input type="date" class="form-control" name="documentDate" id="documentDate" placeholder="Дата документа" required>
                             </div>
                             <div class="col-sm-6">
-                                <label for="contractor">Поставщик</label>
+                                <label for="contractor">Потребитель</label>
                                 <select id="contractor" class="form-control" name="contractor" style="display: block" required>
                                     <option th:each="contractor : ${contractors}" th:value="${contractor.id}" th:text="${contractor.name}"></option>
                                 </select>
@@ -61,7 +61,7 @@
                     </button>
                 </div>
                 <form class="m_c_e-form" mce_loc="/document/shipment_document_item">
-                    <input type="hidden" id="acceptanceDocument" name="acceptanceDocument">
+                    <input type="hidden" id="shipmentDocument" name="shipmentDocument">
                     <div class="modal-body">
                         <div class="form-group row m-1 mb-3 mt-3">
                             <div class="col-sm-8">

@@ -13,7 +13,7 @@ $(document).ready(function() {
         lengthMenu: [ 10, 25, 50, 75, 100 ],
         ajax: {
             contentType: 'application/json',
-            url: 'vats/ajax',
+            url: '/document/inventory_document/ajax',
             type: 'POST',
             data: function(d) {
                 return JSON.stringify(d);
@@ -26,15 +26,19 @@ $(document).ready(function() {
         columns:
             [
                 {
-                    data: "programName",
-                    width: '200px'
+                    data: "id",
+                    width: '70px'
                 },
                 {
-                    data: "name",
+                    data: "documentNumber",
                     render: function (data, type, row) {
-                        return "<div href='" + row.id + "' class='m_c_e-btn-edit' style='text-decoration:underline;cursor:pointer' title='Редактировать'>" + row.name + "</div>";
+                        return "<div href='" + row.id + "' class='m_c_e-btn-edit' style='text-decoration:underline;cursor:pointer' mce_loc='/document/inventory_document' title='Редактировать'>" + row.documentNumber + "</div>";
                     },
                     width: '400px'
+                },
+                {
+                    data: "documentDate",
+                    width: '150px'
                 }
             ],
         language: {
@@ -65,3 +69,109 @@ $(document).ready(function() {
     });
 });
 
+function s_datatable_reload () {
+    $('#s_datatable').DataTable().ajax.reload();
+}
+
+function datatable_reload () {
+    $('#datatable').DataTable().ajax.reload();
+}
+
+function create_s_datatable (id) {
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
+
+    $("#s_datatable").DataTable({
+        dom: "<'row py-0'<'col-sm-12 py-0'B>><'row py-0'<'col-sm-8 py-1 _add_button'><'col-sm-4 py-1'f>><'row py-0'<'col-sm-12 py-0'tr>><'row pt-1'<'col-sm-12 col-md-3'l><'col-sm-12 col-md-6'p><'col-sm-12 col-md-3'i>>",
+        stateSave: true,
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        pageLength: 25,
+        lengthMenu: [ 10, 25, 50, 75, 100 ],
+        bAutoWidth: true,
+        ajax: {
+            contentType: 'application/json',
+            url: '/document/inventory_document_item/ajax/' + id,
+            type: 'POST',
+            data: function(d) {
+                return JSON.stringify(d);
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            }
+        },
+        bProcessing: true,
+        columns:
+            [
+                {
+                    data: "id"
+                },
+                {
+                    data: "product.name"
+                },
+                {
+                    data: "quantityPlan"
+                },
+                {
+                    data: "quantityFact"
+                },
+            ],
+        language: {
+            "processing": "Подождите...",
+            "search": "Поиск:",
+            "lengthMenu": "Показать: _MENU_",
+            "info": "C _START_ до _END_ из _TOTAL_",
+            "infoEmpty": "C 0 до 0 из 0",
+            "infoFiltered": "(из _MAX_)",
+            "infoPostFix": "",
+            "loadingRecords": "Загрузка...",
+            "zeroRecords": "Данные отсутствуют.",
+            "emptyTable": "В таблице отсутствуют данные",
+            "paginate": {
+                "first": "<i class='angle-double-left'></i>",
+                "previous": "<i class='fas fa-caret-left'></i>",
+                "next": "<i class='fas fa-caret-right'></i>",
+                "last": "<i class='angle-double-right'></i>"
+            },
+            "aria": {
+                "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                "sortDescending": ": активировать для сортировки столбца по убыванию"
+            }
+        },
+        initComplete: function () {
+            $(`<button class="btn buttons-create btn-outline-secondary m_c_e-btn-create ml-3" mce_loc="/document/inventory_document_item">Добавить</button>`)
+                .appendTo($('._add_button').empty());
+        },
+    });
+}
+
+$(document)
+    .on('edit create', '.m_c_e-form[mce_loc="/document/inventory_document"]', function (e, res) {
+        res = JSON.parse(res);
+        create_s_datatable(res.id);
+        $('#s_datatable').css('width', '100%');
+    })
+    .on('creating', '.m_c_e-form[mce_loc="/document/inventory_document_item"]', function (e, res) {
+        $('.m_c_e-modal[mce_loc="/document/inventory_document"]').modal("hide");
+        $('.m_c_e-form[mce_loc="/document/inventory_document_item"] #inventoryDocument').val($('.m_c_e-form[mce_loc="/document/inventory_document"] #id').val());
+    })
+    .on('hidden.bs.modal', '.m_c_e-modal[mce_loc="/document/inventory_document_item"]', function (e) {
+        $('.m_c_e-modal[mce_loc="/document/inventory_document"]').modal("show");
+        s_datatable_reload();
+    })
+    .on('creating', '.m_c_e-form[mce_loc="/document/inventory_document"]', function (e, res) {
+        res = JSON.parse(res);
+        $('.m_c_e-form[mce_loc="/document/inventory_document"]')
+            .attr('action', window.location.origin + $(this).attr("mce_loc") + '/' + res.id)
+            .attr('_method', 'PUT')
+            .attr('_save_action', window.location.origin + $(this).attr("mce_loc") + '/' + res.id)
+            .attr('_save_method', 'PUT')
+            .attr('method', 'PUT');
+
+        datatable_reload();
+    })
+    .on('change', '.m_c_e-form[mce_loc="/document/inventory_document_item"] #product', function () {
+        console.info('sus');
+        $('.m_c_e-form[mce_loc="/document/inventory_document_item"] #quantityPlan').val($(this).find(":selected").attr('quantity'));
+    });

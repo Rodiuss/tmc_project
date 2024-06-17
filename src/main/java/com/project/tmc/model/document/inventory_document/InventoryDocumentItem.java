@@ -1,6 +1,5 @@
 package com.project.tmc.model.document.inventory_document;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.project.tmc.model.product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,13 +21,15 @@ public class InventoryDocumentItem {
 
     @ManyToOne
     @JoinColumn(name = "document_id", nullable = false)
-    private InventoryDocument acceptanceDocument;
+    private InventoryDocument inventoryDocument;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+    @Column(name = "quantity_plan", nullable = false)
+    private Integer quantityPlan;
+
+    @Column(name = "quantity_fact", nullable = false)
+    private Integer quantityFact;
 }
