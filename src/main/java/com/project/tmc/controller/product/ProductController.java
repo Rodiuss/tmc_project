@@ -11,6 +11,7 @@ import com.project.tmc.service.GenericCrudService;
 import jakarta.validation.Valid;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +69,13 @@ public class ProductController extends GenericCrudControllerImpl<Product> {
     @Override
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@ModelAttribute Product model) {
-        return super.update(model);
+        try {
+            model.setQuantity(service.getById(model.getId()).getQuantity());
+            service.update(model);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatusCode.valueOf(500)).body("Запись со схожими атрибутами уже существует");
+        }
+        return ResponseEntity.ok().body(model);
     }
 
     @Override

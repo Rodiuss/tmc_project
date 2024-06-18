@@ -6,7 +6,41 @@
 <main class="px-4">
     <div class="container">
         <h1>Стартовая страница</h1>
+        <canvas id="homeCanvas" height="400" width="700"></canvas>
     </div>
 </main>
 </body>
+
+<script>
+    const data = {
+        labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'],
+        datasets: [{
+            label: 'Приход',
+            data: [100, 120, 150, 130, 180, 200],
+            borderColor: 'green',
+            borderWidth: 2
+        }, {
+            label: 'Расход',
+            data: [80, 90, 110, 100, 140, 160],
+            borderColor: 'red',
+            borderWidth: 2
+        }]
+    };
+
+    const options = {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
+
+    const CHART = document.getElementById('homeCanvas');
+
+    // let myLineChart = new Chart(CHART, {
+    //     type: 'line',
+    //     data: data,
+    //     options: options
+    // });
+</script>
 </html>

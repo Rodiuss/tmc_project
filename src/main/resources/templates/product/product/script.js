@@ -133,3 +133,11 @@ $(document).ready(function() {
     });
 });
 
+$(document)
+    .on('create', '.m_c_e-form', function (e, res) {
+        $('#quantity').attr('disabled', false);
+    })
+    .on('edit', '.m_c_e-form', function (e, res) {
+        $('#quantity').attr('disabled', true);
+    });
+
